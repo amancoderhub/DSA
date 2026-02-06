@@ -6,7 +6,7 @@ public:
         int l = 0;
         int maxlen = 0;
         for(int r = 0;r<n;r++){
-            while(l<=r && nums[r] > 1LL*nums[l] * k){
+            while(l<=r && nums[r] > (long long)nums[l] * k){
                 l++;
             }
             maxlen = max(maxlen,r-l+1);
