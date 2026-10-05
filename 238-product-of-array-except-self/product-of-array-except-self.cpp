@@ -2,18 +2,32 @@ class Solution {
 public:
     vector<int> productExceptSelf(vector<int>& nums) {
         int n = nums.size();
-        vector<int>ans(n);
-        // Prefix Sum
-        int leftProduct = 1;
+        vector<int> ans(n,0);
+        int totalProd = 1;
+        int zeroCount = 0;
+        //calculate total prod without zero and also zero count 
         for(int i = 0;i<n;i++){
-            ans[i] = leftProduct;
-            leftProduct *= nums[i];
-        }
-        // Suffix Sum 
-        int rightProduct = 1;
-        for(int i = n-1;i>=0;i--){
-            ans[i] *= rightProduct;
-            rightProduct *= nums[i];
+           if(nums[i]==0){
+              zeroCount++;
+           }else{
+             totalProd *= nums[i];
+           }
+        };
+        //update the ans array according to the condition
+        for(int i = 0;i<n;i++){
+            //if zero count is more then one then all arr become zero
+            if(zeroCount>1){
+               ans[i] = 0;
+            }
+            //if zero count is only one then replace zero with total prod
+            else if(zeroCount==1){
+               if(nums[i]==0){
+                 ans[i] = totalProd;
+               }
+            //if zeroCount equal to 0 then total prodct add by apply deviosn by nums arr
+            }else{
+                ans[i] = totalProd/nums[i];
+            } 
         }
         return ans;
     }
